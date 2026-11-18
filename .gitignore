@@ -30,12 +30,19 @@ yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
 
-# env files (can opt-in for committing if needed)
+# env files (.env.example is committed as documentation, the rest aren't)
 .env*
+!.env.example
 
 # vercel
 .vercel
 
+# obsolete local SQLite db from before the Postgres migration
+/data/orders.db*
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# dev server log
+dev.log

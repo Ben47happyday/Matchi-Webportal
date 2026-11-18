@@ -1,0 +1,40 @@
+# Render Blueprint for the HEYMAT wholesale ordering app.
+#
+# This deploys as its own free Render web service (Node/Next.js), not
+# reachable directly in normal use — it's reverse-proxied from the Zcube
+# company site (see Naplan-Portal/backend/app.py, the `matchihomeware_proxy`
+# routes) so it appears at https://www.zcube.com.au/solutions/matchihomeware/.
+# NEXT_PUBLIC_BASE_PATH makes the app aware of that mount point so its own
+# links, assets and API calls resolve correctly.
+#
+# To use: push this repo to GitHub, then in the Render dashboard choose
+# "New > Blueprint" and point it at the repo. You'll be prompted for
+# DATABASE_URL (same Supabase Postgres project Naplan-Portal uses is fine —
+# this app keeps its tables in their own "matchihomeware" schema) and the
+# MS_GRAPH_* / NOTIFY_EMAIL values already set on the naplan-prep-hub
+# service, plus a fresh ADMIN_PASSWORD for the /admin orders dashboard.
+services:
+  - type: web
+    name: matchihomeware
+    runtime: node
+    plan: free
+    buildCommand: npm ci && npm run build
+    startCommand: npm start
+    healthCheckPath: /solutions/matchihomeware/api/health
+    envVars:
+      - key: NEXT_PUBLIC_BASE_PATH
+        value: /solutions/matchihomeware
+      - key: ADMIN_PASSWORD
+        generateValue: true
+      - key: DATABASE_URL
+        sync: false
+      - key: NOTIFY_EMAIL
+        sync: false
+      - key: MS_GRAPH_TENANT_ID
+        sync: false
+      - key: MS_GRAPH_CLIENT_ID
+        sync: false
+      - key: MS_GRAPH_CLIENT_SECRET
+        sync: false
+      - key: MS_GRAPH_SENDER_EMAIL
+        sync: false
