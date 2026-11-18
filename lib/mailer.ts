@@ -1,10 +1,8 @@
 import type { OrderInput } from "@/lib/db";
 
 // Sends via Microsoft Graph's sendMail API (app-only OAuth2 client
-// credentials) — the same mechanism the Zcube company site's contact form
-// and marketing/send_campaign.py use (see Naplan-Portal/backend/app.py).
-// Reusing those MS_GRAPH_* credentials here means no separate Gmail app
-// password to manage for this app.
+// credentials) from an Azure AD app registration with Mail.Send permission
+// on the sender mailbox — see MS_GRAPH_* in .env.example.
 
 const GRAPH_TOKEN_URL =
   "https://login.microsoftonline.com/{tenant}/oauth2/v2.0/token";

@@ -6,8 +6,7 @@ import { Pool, types } from "pg";
 types.setTypeParser(types.builtins.NUMERIC, (value: string) => parseFloat(value));
 
 // Orders live in their own "matchihomeware" schema so this app can share a
-// Postgres instance (e.g. the same Supabase project as other Zcube
-// solutions) without colliding with another app's tables.
+// Postgres instance with other apps/schemas without colliding.
 const SCHEMA = "matchihomeware";
 
 declare global {

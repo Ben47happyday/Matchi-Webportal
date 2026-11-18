@@ -1,8 +1,8 @@
 import type { NextConfig } from "next";
 
-// Empty for local dev (served at /). In production this is set to
-// "/solutions/matchihomeware" so the app works when the Zcube company site
-// (Naplan-Portal's Flask service) reverse-proxies that path to this one.
+// Empty by default — the app serves at "/". Only set NEXT_PUBLIC_BASE_PATH
+// if this ever needs to be mounted under a sub-path of another site (e.g.
+// reverse-proxied from a different service).
 const basePath = process.env.NEXT_PUBLIC_BASE_PATH || "";
 
 const nextConfig: NextConfig = {
